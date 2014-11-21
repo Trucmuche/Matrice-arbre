@@ -11,38 +11,24 @@
 #define C8 C8
 #define TAILLE 8
 
+typedef struct noeud
+{
+
+} noeud ;
+
 typedef struct tete
 {
     int posx;
     int posy;
-    struct noeud *C1;
-    struct noeud *C2;
-    struct noeud *C3;
-    struct noeud *C4;
-    struct noeud *C5;
-    struct noeud *C6;
-    struct noeud *C7;
-    struct noeud *C8;
+
     struct tete *suivant;
 } tete ;
 
-typedef struct noeud
-{
-    struct noeud *C1;
-    struct noeud *C2;
-    struct noeud *C3;
-    struct noeud *C4;
-    struct noeud *C5;
-    struct noeud *C6;
-    struct noeud *C7;
-    struct noeud *C8;
-} noeud ;
-
-void initialiserTete(tete **elem)
+void initialiserTete(tete *elem)
 {
     elem->posx = 0;
     elem->posy = 0;
-    elem->C1 = NULL;
+    elem->pos [][] = NULL;
     elem->C2 = NULL;
     elem->C3 = NULL;
     elem->C4 = NULL;
@@ -69,10 +55,10 @@ void initialiserNoeud(noeud **elem)
     return;
 }
 
-noeud *creerTete(int tab[][TAILLE], int verif[][TAILLE], int i, int j)
+tete *creerTete(int tab[][TAILLE], int verif[][TAILLE], int i, int j)
 {
-    noeud *elem = malloc(sizeof(elem));
-    initialiserNoeud(&elem);
+    tete *elem = malloc(sizeof(elem));
+    initialiserTete(&elem);
 
     return elem;
 }
@@ -119,15 +105,73 @@ void affichageArbre(noeud *arbre)
 
 void initialiserTableau(int tab[][TAILLE],int type)
 {
+    for (i=0;i<=TAILLE;i++)
+        for (j=0;j<=TAILLE;j++)
+            tab[i][j] = 0;
+
+    if (type == 1)
+    {
+        tab[1][1] = 1;
+        tab[1][2] = 1;
+        tab[1][5] = 1;
+        tab[1][6] = 1;
+        tab[2][1] = 1;
+        tab[2][2] = 1;
+        tab[2][5] = 1;
+        tab[2][6] = 1;
+        tab[4][3] = 1;
+        tab[4][4] = 1;
+        tab[5][1] = 1;
+        tab[5][6] = 1;
+        tab[6][2] = 1;
+        tab[6][3] = 1;
+        tab[6][4] = 1;
+        tab[6][5] = 1;
+    }
+
+    if (type == 2)
+    {
+        tab[1][1] = 1;
+        tab[1][6] = 1;
+        tab[2][1] = 1;
+        tab[2][2] = 1;
+        tab[2][6] = 1;
+        tab[3][1] = 1;
+        tab[3][3] = 1;
+        tab[3][6] = 1;
+        tab[4][1] = 1;
+        tab[4][4] = 1;
+        tab[4][6] = 1;
+        tab[5][1] = 1;
+        tab[5][5] = 1;
+        tab[5][6] = 1;
+        tab[6][1] = 1;
+        tab[6][6] = 1;
+    }
+
+    return;
+}
+
+void afficherTableau(int tab[][TAILLE])
+{
+    for (i=0;i<=TAILLE;i++)
+        for (j=0;j<=TAILLE;j++)
+            if (tab[i][j] = 1)
+                printf("x   ");
+            else
+                printf("_   ");
+        printf("\n");
+
     return;
 }
 
 int main()
 {
     tete *arbre;
-    int tab[TAILLE][TAILLE],verif[TAILLE][TAILLE];
+    int tab[TAILLE][TAILLE],verif[TAILLE][TAILLE],pos[3][3];
     initialiserTableau(verif,0);
     initialiserTableau(tab,1);
+    afficherTableau(tab);
 
     arbre = creerArbre(tab,verif);
 
